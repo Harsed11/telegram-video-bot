@@ -27,6 +27,7 @@ dp = bot_module.dp
 RENDER_URL = os.environ.get("RENDER_EXTERNAL_URL", "")
 REPLIT_DOMAIN = os.environ.get("REPLIT_DOMAINS", "").split(",")[0].strip() if os.environ.get("REPLIT_DOMAINS") else None
 LOCAL_DOMAIN = RENDER_URL or os.environ.get("DOMAIN") or REPLIT_DOMAIN or "localhost"
+LOCAL_DOMAIN = LOCAL_DOMAIN.replace("https://", "").replace("http://", "").rstrip("/")
 
 
 @app.route("/")
