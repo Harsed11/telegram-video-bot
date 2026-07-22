@@ -160,9 +160,6 @@ footer a{{color:var(--accent);text-decoration:none}}
 .toast-close{{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;padding:4px;flex-shrink:0}}
 .reveal{{opacity:0;transform:translateY(40px);transition:.8s cubic-bezier(.16,1,.3,1)}}
 .reveal.visible{{opacity:1;transform:translateY(0)}}
-.cursor-dot{{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transition:.1s mix-blend-mode:difference}}
-.cursor-ring{{position:fixed;width:36px;height:36px;border:2px solid rgba(0,153,255,.3);border-radius:50%;pointer-events:none;z-index:9998;transition:.15s}}
-@media(max-width:768px){{.cursor-dot,.cursor-ring{{display:none}}}}
 @media(max-width:600px){{.nav-links a:not(.btn-glow){{display:none}}.stats{{grid-template-columns:1fr;gap:12px}}.hero{{padding:100px 0 40px}}.features-grid{{grid-template-columns:1fr}}.steps-grid{{grid-template-columns:1fr}}.steps-grid::before{{display:none}}}}
 </style>
 </head>
@@ -171,8 +168,7 @@ footer a{{color:var(--accent);text-decoration:none}}
 <canvas id="bg"></canvas>
 <div class="aurora"><div class="a1"></div><div class="a2"></div><div class="a3"></div></div>
 <div class="noise"></div>
-<div class="cursor-dot" id="cd"></div>
-<div class="cursor-ring" id="cr"></div>
+
 
 <nav>
 <div class="nav-inner">
@@ -439,14 +435,7 @@ function animate() {{
 }}
 animate();
 
-var cd = document.getElementById('cd');
-var cr = document.getElementById('cr');
-document.addEventListener('mousemove', function(e) {{
-  cd.style.left = (e.x - 4) + 'px';
-  cd.style.top = (e.y - 4) + 'px';
-  cr.style.left = (e.x - 18) + 'px';
-  cr.style.top = (e.y - 18) + 'px';
-}});
+
 
 var observer = new IntersectionObserver(function(entries) {{
   entries.forEach(function(e) {{
