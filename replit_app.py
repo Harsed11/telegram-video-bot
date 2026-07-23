@@ -162,8 +162,20 @@ footer a{{color:var(--accent);text-decoration:none}}
 .toast-close{{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;padding:4px;flex-shrink:0}}
 .reveal{{opacity:0;transform:translateY(40px);transition:.8s cubic-bezier(.16,1,.3,1)}}
 .reveal.visible{{opacity:1;transform:translateY(0)}}
-.sidebar{{position:fixed;top:0;left:-250px;width:250px;height:100vh;background:var(--bg);z-index:200;border-right:1px solid var(--border);transition:.3s;backdrop-filter:blur(20px)}}
-.sidebar.open{{left:0}}
+/* ── LAYOUT ── */
+body{{display:flex;min-height:100vh;margin:0;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);transition:.3s}}
+.sidebar{{width:260px;height:100vh;position:sticky;top:0;background:rgba(10,10,20,.8);backdrop-filter:blur(20px);border-right:1px solid var(--border);padding:40px 20px;display:flex;flex-direction:column;gap:40px;z-index:100}}
+.main-content{{flex:1;overflow-y:auto;height:100vh}}
+
+/* ── SIDEBAR ── */
+.sidebar-logo{{font-size:24px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}}
+.sidebar-links{{display:flex;flex-direction:column;gap:16px}}
+.sidebar-link{{color:var(--muted);text-decoration:none;font-weight:500;padding:12px 16px;border-radius:12px;transition:.3s;display:flex;align-items:center;gap:12px}}
+.sidebar-link:hover{{background:rgba(255,255,255,.05);color:var(--text)}}
+.sidebar-link.active{{background:var(--card);color:var(--text)}}
+
+@media(max-width:900px){{.sidebar{{display:none}}.main-content{{width:100%}}}}
+
 @media(max-width:600px){{.nav-links a:not(.btn-glow){{display:none}}.stats{{grid-template-columns:1fr;gap:12px}}.hero{{padding:100px 0 40px}}.features-grid{{grid-template-columns:1fr}}.steps-grid{{grid-template-columns:1fr}}.steps-grid::before{{display:none}}}}
 </style>
 </head>
@@ -174,28 +186,26 @@ footer a{{color:var(--accent);text-decoration:none}}
 <div class="noise"></div>
 
 
-<nav>
-<div class="nav-inner">
-  <div style="display:flex;align-items:center;gap:15px">
-    <button onclick="toggleSidebar()" class="menu-btn" style="background:none;border:none;cursor:pointer;color:var(--text);font-size:24px">☰</button>
-    <div class="logo">SaveVideoBot</div>
+<aside class="sidebar">
+  <div class="sidebar-logo">SaveVideoBot</div>
+  <div class="sidebar-links">
+    <a href="#features" class="sidebar-link">✦ Возможности</a>
+    <a href="#how" class="sidebar-link">✦ Как работает</a>
+    <a href="#faq" class="sidebar-link">✦ FAQ</a>
   </div>
+  <div style="margin-top:auto">
+    <button onclick="toggleTheme()" class="theme-toggle" style="width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:12px;padding:12px;cursor:pointer;color:var(--text)">Сменить тему</button>
+  </div>
+</aside>
+
+<main class="main-content">
+<nav>
+<div class="nav-inner" style="justify-content:flex-end">
   <div class="nav-links">
-    <a href="#features">Возможности</a>
-    <button onclick="toggleTheme()" class="theme-toggle" style="background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:50px;padding:8px 12px;cursor:pointer;font-size:16px;color:var(--text)">🌙</button>
-    <a href="{BOT_LINK}" target="_blank" class="btn-glow">Запустить</a>
+    <a href="{BOT_LINK}" target="_blank" class="btn-glow">Запустить бота</a>
   </div>
 </div>
 </nav>
-
-<div class="sidebar" id="sidebar">
-  <button onclick="toggleSidebar()" class="close-btn" style="background:none;border:none;color:var(--text);font-size:24px;padding:20px;cursor:pointer">×</button>
-  <div style="padding:20px;display:flex;flex-direction:column;gap:20px">
-    <a href="#features" onclick="toggleSidebar()" style="color:var(--text);text-decoration:none;font-size:18px">Возможности</a>
-    <a href="#how" onclick="toggleSidebar()" style="color:var(--text);text-decoration:none;font-size:18px">Как работает</a>
-    <a href="#faq" onclick="toggleSidebar()" style="color:var(--text);text-decoration:none;font-size:18px">FAQ</a>
-  </div>
-</div>
 
 
 <section class="hero container">
