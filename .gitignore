@@ -1,0 +1,5 @@
+opencode.json 
+.env 
+downloads/ 
+__pycache__/ 
+*.pyc 
