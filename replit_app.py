@@ -162,6 +162,8 @@ footer a{{color:var(--accent);text-decoration:none}}
 .toast-close{{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;padding:4px;flex-shrink:0}}
 .reveal{{opacity:0;transform:translateY(40px);transition:.8s cubic-bezier(.16,1,.3,1)}}
 .reveal.visible{{opacity:1;transform:translateY(0)}}
+.sidebar{{position:fixed;top:0;left:-250px;width:250px;height:100vh;background:var(--bg);z-index:200;border-right:1px solid var(--border);transition:.3s;backdrop-filter:blur(20px)}}
+.sidebar.open{{left:0}}
 @media(max-width:600px){{.nav-links a:not(.btn-glow){{display:none}}.stats{{grid-template-columns:1fr;gap:12px}}.hero{{padding:100px 0 40px}}.features-grid{{grid-template-columns:1fr}}.steps-grid{{grid-template-columns:1fr}}.steps-grid::before{{display:none}}}}
 </style>
 </head>
@@ -174,16 +176,27 @@ footer a{{color:var(--accent);text-decoration:none}}
 
 <nav>
 <div class="nav-inner">
-  <div class="logo">SaveVideoBot</div>
+  <div style="display:flex;align-items:center;gap:15px">
+    <button onclick="toggleSidebar()" class="menu-btn" style="background:none;border:none;cursor:pointer;color:var(--text);font-size:24px">☰</button>
+    <div class="logo">SaveVideoBot</div>
+  </div>
   <div class="nav-links">
     <a href="#features">Возможности</a>
-    <a href="#how">Как работает</a>
-    <a href="#faq">FAQ</a>
     <button onclick="toggleTheme()" class="theme-toggle" style="background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:50px;padding:8px 12px;cursor:pointer;font-size:16px;color:var(--text)">🌙</button>
     <a href="{BOT_LINK}" target="_blank" class="btn-glow">Запустить</a>
   </div>
 </div>
 </nav>
+
+<div class="sidebar" id="sidebar">
+  <button onclick="toggleSidebar()" class="close-btn" style="background:none;border:none;color:var(--text);font-size:24px;padding:20px;cursor:pointer">×</button>
+  <div style="padding:20px;display:flex;flex-direction:column;gap:20px">
+    <a href="#features" onclick="toggleSidebar()" style="color:var(--text);text-decoration:none;font-size:18px">Возможности</a>
+    <a href="#how" onclick="toggleSidebar()" style="color:var(--text);text-decoration:none;font-size:18px">Как работает</a>
+    <a href="#faq" onclick="toggleSidebar()" style="color:var(--text);text-decoration:none;font-size:18px">FAQ</a>
+  </div>
+</div>
+
 
 <section class="hero container">
   <div class="hero-chip reveal"><span class="dot"></span> Бот онлайн · Работает 24/7</div>
@@ -451,6 +464,9 @@ setTimeout(function() {{ document.getElementById('toast').classList.add('show');
 setTimeout(function() {{ document.getElementById('toast').classList.remove('show'); }}, 8000);
 
 function toggleFaq(el) {{ el.classList.toggle('open'); }}
+function toggleSidebar() {{
+  document.getElementById('sidebar').classList.toggle('open');
+}}
 function toggleTheme() {{
   const html = document.documentElement;
   const isLight = html.dataset.theme === 'light';
