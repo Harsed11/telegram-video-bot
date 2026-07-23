@@ -47,8 +47,10 @@ LANDING_HTML = f"""
 *{{margin:0;padding:0;box-sizing:border-box}}
 :root{{--bg:#06060e;--card:rgba(255,255,255,0.03);--border:rgba(255,255,255,0.06);--accent:#0099ff;--accent2:#7b2ff2;--accent3:#ff2d7b;--glow:rgba(0,153,255,0.4);--text:#f0f0f8;--muted:#7a7a8e;--radius:24px}}
 html{{scroll-behavior:smooth}}
-body{{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh}}
+body{{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh;transition:.3s}}
 ::selection{{background:var(--accent);color:#fff}}
+
+[data-theme='light']{{--bg:#ffffff;--card:#f0f0f8;--border:#e0e0e0;--text:#06060e;--muted:#555}}
 canvas#bg{{position:fixed;inset:0;z-index:0;pointer-events:none}}
 .aurora{{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}}
 .aurora div{{position:absolute;border-radius:50%;filter:blur(120px);opacity:.35;animation:aurora 20s ease-in-out infinite alternate}}
@@ -177,6 +179,7 @@ footer a{{color:var(--accent);text-decoration:none}}
     <a href="#features">Возможности</a>
     <a href="#how">Как работает</a>
     <a href="#faq">FAQ</a>
+    <button onclick="toggleTheme()" class="theme-toggle" style="background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:50px;padding:8px 12px;cursor:pointer;font-size:16px;color:var(--text)">🌙</button>
     <a href="{BOT_LINK}" target="_blank" class="btn-glow">Запустить</a>
   </div>
 </div>
@@ -448,6 +451,12 @@ setTimeout(function() {{ document.getElementById('toast').classList.add('show');
 setTimeout(function() {{ document.getElementById('toast').classList.remove('show'); }}, 8000);
 
 function toggleFaq(el) {{ el.classList.toggle('open'); }}
+function toggleTheme() {{
+  const html = document.documentElement;
+  const isLight = html.dataset.theme === 'light';
+  html.dataset.theme = isLight ? 'dark' : 'light';
+  document.querySelector('.theme-toggle').textContent = isLight ? '🌙' : '☀️';
+}}
 
 var counters = document.querySelectorAll('.stat-num');
 var cObserver = new IntersectionObserver(function(entries) {{
